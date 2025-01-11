@@ -1,4 +1,4 @@
-import React from 'react'; // Add this import to fix the React not defined error
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -22,52 +22,49 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Clock,
-  Send
-} from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 
+// Validation Schema
 const formSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
+  name: z.string().min(2, 'Name must be at least 2 characters long'),
+  email: z.string().email('Please enter a valid email address'),
   phone: z.string().min(10, 'Phone number must be at least 10 digits'),
   message: z.string().min(10, 'Message must be at least 10 characters'),
 });
 
+// Contact Information
 const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
     details: 'starsetconsulting@gmail.com',
-    link: 'mailto:contact@starset.com'
+    link: 'mailto:contact@starset.com',
   },
   {
     icon: Phone,
     title: 'Phone',
     details: '+91 9110886128',
-    link: 'tel:+15551234567'
+    link: 'tel:+919110886128',
   },
   {
     icon: MapPin,
     title: 'Address',
     details: 'GNJERBI Foundation Incubation Centre',
-    link: 'https://maps.app.goo.gl/HAzTkQZNT995LKuS8'
+    link: 'https://maps.app.goo.gl/HAzTkQZNT995LKuS8',
   },
   {
     icon: Clock,
     title: 'Business Hours',
     details: 'Monday - Friday: 9:00 AM - 5:00 PM',
-    link: null
-  }
+    link: null,
+  },
 ];
 
 export default function Contact() {
   const { toast } = useToast();
-  const [formSubmitted, setFormSubmitted] = React.useState(false); // state to track submission
-  const form = useForm<z.infer<typeof formSchema>>({
+  const [formSubmitted, setFormSubmitted] = React.useState(false);
+
+  const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
@@ -77,41 +74,32 @@ export default function Contact() {
     },
   });
 
-  // Handle form submission using Formspree
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    const formData = new FormData();
-    formData.append('name', values.name);
-    formData.append('email', values.email);
-    formData.append('phone', values.phone);
-    formData.append('message', values.message);
-
-    fetch('https://formspree.io/f/xzzzyaep', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => {
-        if (response.ok) {
-          toast({
-            title: 'Message Sent!',
-            description: 'We will get back to you as soon as possible.',
-          });
-          setFormSubmitted(true); // Update state to show success page
-        } else {
-          toast({
-            title: 'Error!',
-            description: 'There was an issue with your submission.',
-          });
-        }
-      })
-      .catch(() => {
-        toast({
-          title: 'Error!',
-          description: 'There was an issue with your submission.',
-        });
+  const onSubmit = async (values) => {
+    try {
+      const response = await fetch('https://formspree.io/f/xzzzyaep', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
       });
-  }
 
-  // Render success message if form is submitted
+      if (response.ok) {
+        setFormSubmitted(true); // Trigger the Thank You message
+        toast({
+          title: 'Message Sent!',
+          description: 'Your message has been successfully submitted.',
+        });
+      } else {
+        throw new Error('Submission failed');
+      }
+    } catch (error) {
+      toast({
+        title: 'Error!',
+        description: 'There was an issue submitting the form. Please try again later.',
+      });
+    }
+  };
+
+  // Render Thank You message if the form is successfully submitted
   if (formSubmitted) {
     return (
       <div className="min-h-screen pt-16 text-center">
@@ -140,13 +128,11 @@ export default function Contact() {
         >
           <h1 className="text-4xl font-bold mb-6">Get in Touch</h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind? We'd love to hear from you. Send us a message
-            and we'll respond as soon as possible.
+            Have a project in mind? We'd love to hear from you. Send us a message, and we'll respond as soon as possible.
           </p>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Contact Information */}
           <div className="space-y-4">
             {contactInfo.map((item, index) => (
               <motion.div
@@ -165,8 +151,8 @@ export default function Contact() {
                           <a
                             href={item.link}
                             className="text-muted-foreground hover:text-primary transition-colors"
-                            target={item.link.startsWith('http') ? '_blank' : undefined}
-                            rel={item.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             {item.details}
                           </a>
@@ -181,7 +167,6 @@ export default function Contact() {
             ))}
           </div>
 
-          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -192,7 +177,7 @@ export default function Contact() {
               <CardHeader>
                 <CardTitle>Send us a Message</CardTitle>
                 <CardDescription>
-                  Fill out the form below and we'll get back to you shortly.
+                  Fill out the form below, and we'll get back to you shortly.
                 </CardDescription>
               </CardHeader>
               <CardContent>
