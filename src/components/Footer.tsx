@@ -41,6 +41,14 @@ export default function Footer() {
           <p className="mt-2 text-center text-xs leading-5 text-muted-foreground">
             &copy; {new Date().getFullYear()} Starset Consultancy Services. All rights reserved.
           </p>
+          <div className="mt-2 text-center">
+            <Link 
+              to="/policies" 
+              className="text-xs text-muted-foreground hover:text-primary transition-colors"
+            >
+              Privacy Policy & Terms
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

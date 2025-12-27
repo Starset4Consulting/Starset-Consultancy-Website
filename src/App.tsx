@@ -10,6 +10,7 @@ import About from '@/pages/About';
 import Contact from '@/pages/Contact';
 import Careers from '@/pages/Careers';
 import Blog from '@/pages/Blog';
+import Policies from '@/pages/Policies';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/careers" element={<Careers />} />
               <Route path="/blog" element={<Blog />} />
+              <Route path="/policies" element={<Policies />} />
             </Routes>
           </main>
           <Footer />
