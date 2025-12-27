@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+
 import {
   Card,
   CardContent,
@@ -25,7 +24,6 @@ import {
   FaFigma,
   FaAws,
   FaGoogle,
-  FaGithub,
   FaHtml5,
   FaCss3Alt,
   FaJava,
@@ -128,7 +126,7 @@ const icons = [
 ];
 
 const FloatingIcons = () => {
-  const containerStyle = {
+  const containerStyle: React.CSSProperties = {
     position: 'absolute',
     bottom: '82.5%', // Position the slider 10% from the bottom (adjust as needed)
     left: '0',
@@ -136,7 +134,7 @@ const FloatingIcons = () => {
     overflow: 'hidden', // Ensure no overflow is visible
   };
 
-  const trackStyle = {
+  const trackStyle: React.CSSProperties = {
     display: 'flex',
     gap: '40px', // Space between icons
     whiteSpace: 'nowrap',

@@ -11,5 +11,9 @@ export function useToast() {
     }, 3000); // Auto dismiss after 3 seconds
   };
 
-  return { toasts, addToast };
+  const toast = (options: { title: string; description: string }) => {
+    addToast(`${options.title}: ${options.description}`);
+  };
+
+  return { toasts, addToast, toast };
 }

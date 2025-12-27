@@ -1,13 +1,11 @@
 import { motion } from 'framer-motion';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Users,
   Target,
   Lightbulb,
-  Shield,
-  Award,
-  Rocket
+  Shield
 } from 'lucide-react';
 
 const team = [

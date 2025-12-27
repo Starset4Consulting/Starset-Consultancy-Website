@@ -1,11 +1,9 @@
-import React from 'react';
+import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
-import { motion } from 'framer-motion';
 import { FaReact, FaPython, FaJsSquare, FaFigma, FaAws, FaGoogle, FaGithub, FaHtml5, FaCss3Alt, FaJava } from 'react-icons/fa';
 import { DiPostgresql, DiFirebase } from 'react-icons/di';
 import { IoLogoNodejs } from 'react-icons/io';
-import { useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { 
@@ -47,7 +45,6 @@ const services = [
 
 const FloatingIcons = () => {
   const radius = 200; // Radius of the circular pattern
-  const center = { x: 50, y: 50 }; // Center of the circle as a percentage
 
   return (
     <div className="absolute inset-0 flex items-center justify-center">

@@ -74,7 +74,7 @@ export default function Contact() {
     },
   });
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: any) => {
     try {
       const response = await fetch('https://formspree.io/f/xzzzyaep', {
         method: 'POST',

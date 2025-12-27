@@ -78,7 +78,7 @@ export default function Portfolio() {
           {['software', 'hardware'].map((category) => (
             <TabsContent key={category} value={category}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {projects[category].map((project, index) => (
+                {projects[category as keyof typeof projects].map((project: any, index: number) => (
                   <motion.div
                     key={project.title}
                     initial={{ opacity: 0, y: 20 }}
@@ -100,7 +100,7 @@ export default function Portfolio() {
                       </CardHeader>
                       <CardContent>
                         <div className="flex flex-wrap gap-2 mb-4">
-                          {project.tech.map((tech) => (
+                          {project.tech.map((tech: string) => (
                             <span
                               key={tech}
                               className="px-2 py-1 bg-primary/10 text-primary rounded-md text-sm"
